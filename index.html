@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted NYC - Explore the Supernatural</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&family=Nosifer&display=swap" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes bloodDrip {
+            0% { 
+                transform: translateY(-100%) scaleY(0.1);
+                opacity: 0;
+            }
+            20% {
+                transform: translateY(-80%) scaleY(1.2);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translateY(-60%) scaleY(0.8);
+                opacity: 1;
+            }
+            60% {
+                transform: translateY(-40%) scaleY(1.1);
+                opacity: 0.9;
+            }
+            80% {
+                transform: translateY(-20%) scaleY(0.9);
+                opacity: 0.95;
+            }
+            100% { 
+                transform: translateY(0) scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bloodOoze {
+            0% { transform: scaleX(1); }
+            50% { transform: scaleX(1.2); }
+            100% { transform: scaleX(1); }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Special Elite', cursive;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 0, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 20%);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'Nosifer', cursive;
+            color: #ff0000;
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            letter-spacing: 2px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .subtitle {
+            font-family: 'Creepster', cursive;
+            color: #ff0000;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 5px #ff0000;
+            animation: flicker 2s infinite;
+        }
+
+        .search-container {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ff0000;
+            font-family: 'Creepster', cursive;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ff0000;
+            border-radius: 5px;
+            background-color: #1a0000;
+            color: #ff0000;
+            font-family: 'Special Elite', cursive;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover {
+            background-color: #ff0000;
+            color: #000;
+        }
+
+        button {
+            background-color: #1a0000;
+            color: #ff0000;
+            border: 1px solid #ff0000;
+            padding: 1rem 2rem;
+            font-family: 'Creepster', cursive;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px #ff0000;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #ff0000;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff0000;
+        }
+
+        .blood-drip {
+            position: absolute;
+            width: 3px;
+            height: 30px;
+            background-color: #ff0000;
+            animation: bloodDrip 4s infinite;
+            opacity: 0.7;
+            transform-origin: top;
+        }
+
+        .blood-drip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -2px;
+            width: 7px;
+            height: 7px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            animation: bloodOoze 3s infinite;
+        }
+
+        .blood-drip::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: -1px;
+            width: 5px;
+            height: 5px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            animation: bloodOoze 2s infinite;
+        }
+
+        .blood-drip:nth-child(1) {
+            top: 0;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .blood-drip:nth-child(2) {
+            top: 0;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .blood-drip:nth-child(3) {
+            top: 0;
+            left: 30%;
+            animation-delay: 2.5s;
+        }
+
+        .blood-drip:nth-child(4) {
+            top: 0;
+            right: 40%;
+            animation-delay: 3.5s;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-family: 'Special Elite', cursive;
+            margin-top: 1rem;
+            text-shadow: 0 0 5px #ff0000;
+            display: none;
+        }
+
+        .info-section {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: glow 2s infinite;
+        }
+
+        .info-section h2 {
+            color: #ff0000;
+            font-family: 'Nosifer', cursive;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #ff0000;
+            text-align: center;
+        }
+
+        .info-section p {
+            color: #e0e0e0;
+            font-family: 'Special Elite', cursive;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .info-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes glow {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .main-container {
+                padding: 1rem;
+            }
+            
+            .search-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+
+        <div class="header">
+            <h1>Haunted NYC</h1>
+        </div>
+
+        <div class="subtitle">Discover the Ghosts of New York City</div>
+
+        <div class="search-container">
+            <form class="search-form" onsubmit="return handleSubmit(event)">
+                <div class="form-group">
+                    <label for="neighborhood">Choose Your Neighborhood</label>
+                    <select id="neighborhood" required>
+                        <option value="">Select a neighborhood...</option>
+                        <option value="harlem">Harlem</option>
+                        <option value="east-village">East Village</option>
+                        <option value="west-village">West Village</option>
+                        <option value="soho">SoHo</option>
+                        <option value="tribeca">TriBeCa</option>
+                        <option value="chelsea">Chelsea</option>
+                        <option value="midtown">Midtown</option>
+                        <option value="upper-east">Upper East Side</option>
+                        <option value="upper-west">Upper West Side</option>
+                        <option value="brooklyn-heights">Brooklyn Heights</option>
+                        <option value="downtown">Downtown</option>
+                        <option value="financial-district">Financial District</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type of Haunting</label>
+                    <select id="type" required>
+                        <option value="">Select a type...</option>
+                        <option value="residential">Residential</option>
+                        <option value="museum">Museum</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="hotel">Hotel</option>
+                        <option value="bar">Bar</option>
+                        <option value="theater">Theater</option>
+                    </select>
+                </div>
+
+                <button type="submit">Explore Haunted Locations</button>
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+        </div>
+
+        <div class="info-section">
+            <h2>Discover NYC's Dark History</h2>
+            <p>New York City is home to countless haunted locations, each with its own chilling story. From historic hotels to mysterious museums, explore the supernatural side of the city that never sleeps.</p>
+            <p>Select your neighborhood and the type of haunted location you're interested in to begin your journey into the unknown.</p>
+        </div>
+    </div>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const neighborhood = document.getElementById('neighborhood').value;
+            const type = document.getElementById('type').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (!neighborhood || !type) {
+                errorMessage.textContent = 'Please select both a neighborhood and type of haunting.';
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            window.location.href = `map.html?neighborhood=${neighborhood}&type=${type}`;
+            return false;
+        }
+    </script>
+</body>
+</html> 
